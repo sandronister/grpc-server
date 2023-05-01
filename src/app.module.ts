@@ -1,10 +1,20 @@
+import { ProductModule } from './product/product.module';
+import { MongooseModule } from '@nestjs/mongoose';
 import { CoreModule } from './core/core.module';
-import { ProductController } from './product/product.controller';
 import { Module } from '@nestjs/common';
+import { EnviromentSchema } from './core/enviroment.schema';
+
+const databaseConnection = [
+  MongooseModule.forRoot(`${EnviromentSchema.stringConnection}`),
+];
 
 @Module({
-  imports: [CoreModule],
-  controllers: [ProductController],
+  imports: [
+    ProductModule,
+    CoreModule,
+    ...databaseConnection
+  ],
+  controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
